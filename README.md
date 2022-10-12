@@ -358,7 +358,7 @@ negotiation is pretty relevant for our purpose:
 To run the application, you can run the following command in the root folder of the project:
 
 ```shell script
-mvn clean package && java -jar controller/target/controller-1.0.jar
+mvn clean test package && java -jar controller/target/controller-1.0.jar
 ```
 
 ## Version 1
