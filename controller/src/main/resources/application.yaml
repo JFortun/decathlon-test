@@ -11,6 +11,8 @@ spring:
     database-platform: org.hibernate.dialect.H2Dialect
     show-sql: true
     open-in-view: true
+    hibernate:
+      ddl-auto: update
   main:
     banner-mode: off
   output:
