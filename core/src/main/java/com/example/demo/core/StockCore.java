@@ -2,7 +2,8 @@ package com.example.demo.core;
 
 import com.example.demo.dto.out.Stock;
 import com.example.demo.dto.out.StockShoe;
-import com.example.demo.dto.out.StockShoes;
+
+import java.util.List;
 
 public interface StockCore {
 
@@ -10,7 +11,7 @@ public interface StockCore {
 
     Stock getStock();
 
-    Stock updateStockBatch(StockShoes shoes);
+    Stock updateStockBatch(List<StockShoe> shoes);
 
     Stock updateStockSingle(StockShoe shoe);
 
