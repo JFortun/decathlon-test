@@ -1,13 +1,15 @@
 package com.example.demo.core;
 
+import com.example.demo.core.exception.StockException;
+import com.example.demo.core.exception.StockExceptionType;
 import com.example.demo.core.shoe.ShoeMapper;
 import com.example.demo.core.shoe.ShoeRepository;
 import com.example.demo.core.stock.StockEntity;
 import com.example.demo.core.stock.StockEntityState;
 import com.example.demo.core.stock.StockMapper;
 import com.example.demo.core.stock.StockRepository;
+import com.example.demo.dto.in.StockShoe;
 import com.example.demo.dto.out.Stock;
-import com.example.demo.dto.out.StockShoe;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -62,7 +64,7 @@ public class StockCoreImpl extends AbstractStockCore {
         stockRepository.saveAndFlush(stock);
     }
 
-    private StockEntityState getStockState(List<StockShoe> shoes) {
+    public StockEntityState getStockState(List<StockShoe> shoes) {
         var count = 0;
         for (StockShoe s : shoes) {
             count = count + s.getQuantity();
@@ -71,8 +73,10 @@ public class StockCoreImpl extends AbstractStockCore {
             return StockEntityState.EMPTY;
         } else if (count > 0 && count < 30) {
             return StockEntityState.SOME;
-        } else {
+        } else if (count == 30) {
             return StockEntityState.FULL;
+        } else {
+            throw new StockException(StockExceptionType.STOCK_LIMIT_REACHED.getDescription());
         }
 
     }
