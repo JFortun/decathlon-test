@@ -1,7 +1,7 @@
 package com.example.demo.core.shoe;
 
 import com.example.demo.core.stock.StockEntity;
-import com.example.demo.dto.out.StockShoe;
+import com.example.demo.dto.in.StockShoe;
 
 import java.util.ArrayList;
 import java.util.List;

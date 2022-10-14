@@ -6,7 +6,7 @@ import com.example.demo.core.shoe.ShoeMapper;
 import com.example.demo.core.stock.StockEntity;
 import com.example.demo.core.stock.StockEntityState;
 import com.example.demo.core.stock.StockMapper;
-import com.example.demo.dto.out.StockShoe;
+import com.example.demo.dto.in.StockShoe;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;

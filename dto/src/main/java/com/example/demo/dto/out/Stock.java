@@ -1,5 +1,6 @@
 package com.example.demo.dto.out;
 
+import com.example.demo.dto.in.StockShoe;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import lombok.Builder;
