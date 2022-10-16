@@ -13,25 +13,30 @@ import com.example.demo.dto.out.Stock;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @Implementation(version = 1)
 public class StockCoreImpl extends AbstractStockCore {
 
-    @Autowired
-    StockRepository stockRepository;
+    private final static Logger LOGGER = Logger.getLogger(StockCoreImpl.class.getSimpleName());
 
-    @Autowired
-    ShoeRepository shoeRepository;
+    @Autowired StockRepository stockRepository;
+
+    @Autowired ShoeRepository shoeRepository;
 
     @Override
     public void initializeStock() {
         var stock = new StockEntity(StockEntityState.EMPTY, null);
         stockRepository.saveAndFlush(stock);
+        LOGGER.log(Level.INFO, String.format("Initial Stock entity created with %s state", stock.getState()));
     }
 
     @Override
     public Stock getStock() {
         var stock = stockRepository.findById(1).get();
+        LOGGER.log(Level.INFO, String.format("Stock info retrieved with state %s and shoe data %s", stock.getState(),
+                ShoeMapper.mapShoesEntityToDTO(stock.getShoes())));
 
         return StockMapper.mapStockEntityToDTO(stock);
     }
@@ -44,6 +49,7 @@ public class StockCoreImpl extends AbstractStockCore {
         actualStock.setState(getStockState(ShoeMapper.mapShoesEntityToDTO(shoeRepository.findAll())));
         updateStock(actualStock);
         var updatedStock = stockRepository.findById(1).get();
+        LOGGER.log(Level.INFO, String.format("Stock updated in batch with shoes %s", shoes));
 
         return StockMapper.mapStockEntityToDTO(updatedStock);
     }
@@ -55,6 +61,7 @@ public class StockCoreImpl extends AbstractStockCore {
         actualStock.setState(getStockState(ShoeMapper.mapShoesEntityToDTO(shoeRepository.findAll())));
         updateStock(actualStock);
         var updatedStock = stockRepository.findById(1).get();
+        LOGGER.log(Level.INFO, String.format("Stock updated with a new added shoe: %s", shoe));
 
         return StockMapper.mapStockEntityToDTO(updatedStock);
     }
@@ -76,6 +83,7 @@ public class StockCoreImpl extends AbstractStockCore {
         } else if (count == 30) {
             return StockEntityState.FULL;
         } else {
+            LOGGER.log(Level.INFO, "Client tried to exceed the 30 shoes limit");
             throw new StockException(StockExceptionType.STOCK_LIMIT_REACHED.getDescription());
         }
 
