@@ -20,7 +20,7 @@ public class StockController {
     private final StockFacade stockFacade;
 
     @GetMapping(path = "/all", produces = "application/json")
-    public ResponseEntity<Stock> all(@RequestHeader Integer version) {
+    public ResponseEntity<Stock> stock(@RequestHeader Integer version) {
 
         return new ResponseEntity<>(stockFacade.get(version).getStock(), HttpStatus.OK);
 

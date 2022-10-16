@@ -88,6 +88,12 @@ public class StockCoreTest extends StockCoreImpl {
     @Test
     @DisplayName("Test getStockState")
     public void getStockState() {
+        Assertions.assertEquals(StockEntityState.SOME, getStockState(ShoeMapper.mapShoesEntityToDTO(stockEntity.getShoes())));
+    }
+
+    @Test
+    @DisplayName("Test getStockStateStockException")
+    public void getStockStateStockException() {
         Assertions.assertThrows(StockException.class, () -> getStockState(Collections.singletonList(shoeDTO31)));
     }
 }
