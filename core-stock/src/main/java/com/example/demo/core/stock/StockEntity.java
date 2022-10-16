@@ -18,7 +18,7 @@ public class StockEntity {
     @Enumerated(EnumType.STRING)
     private StockEntityState state;
 
-    @OneToMany(mappedBy = "stock")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "stock")
     private List<ShoeEntity> shoes;
 
     public StockEntity() {
